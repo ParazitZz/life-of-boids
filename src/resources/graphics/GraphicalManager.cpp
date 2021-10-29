@@ -128,7 +128,7 @@ GraphicalManager::GraphicalManager(Color myBackgroundColor, bool fullScreen) {
 	// new
 	lines_shaderProgram = ShaderProgram_new(lines::vertex_shader_text, lines::fragment_shader_text);
 	lines_vertexArray = VertexArray_new();
-	lines_buffer = Buffer_new();
+	lines_buffer = Buffer_new(); 
 	// init
 	VertexArray_bind(lines_vertexArray);
 	Buffer_bind(lines_buffer, GL_ARRAY_BUFFER);
