@@ -21,7 +21,7 @@ add_executable(mathPart math_main.cpp)
 target_link_libraries(mathPart PUBLIC myMath)
 
 add_executable(main_profiling main_profiling.cpp)
-target_link_libraries(main_profiling PUBLIC libGLX myMath shaders myBirds myLaws opencv::opencv flockGenerator)
+target_link_libraries(main_profiling PUBLIC libGLX myMath shaders myBirds myLaws opencv::opencv flockGenerator myTimer)
 
 add_executable(life-of-boids main.cpp)
 target_link_libraries(life-of-boids PUBLIC libGLX myMath shaders myBirds myLaws opencv::opencv flockGenerator)
