@@ -6,6 +6,9 @@
 build/
 buildGCC/
 buildClang/
+cmake-build-debug/
+cmake-build-debug/
+.idea/
 
 # User-specific files
 *.rsuser
