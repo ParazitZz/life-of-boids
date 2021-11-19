@@ -32,7 +32,7 @@ int main() {
 
 
 
-    Flock flock = generate_parrot_flock(size);
+    Flock flock = generate_parrot_flock(10000);
 
 
     MAIN_pFLOCK = &flock;

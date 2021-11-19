@@ -11,6 +11,7 @@ endif()
 
 add_subdirectory("lib/myLaws")
 add_subdirectory("lib/myMath")
+add_subdirectory("lib/myTimer")
 add_subdirectory("resources/graphics")
 add_subdirectory("resources/model")
 add_subdirectory("resources/controller")
