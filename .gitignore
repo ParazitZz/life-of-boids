@@ -7,7 +7,7 @@ build/
 buildGCC/
 buildClang/
 cmake-build-debug/
-cmake-build-debug/
+.vscode/
 .idea/
 
 # User-specific files
