@@ -1,4 +1,4 @@
-FIND_PACKAGE(glfw3 3.3 REQUIRED) # REQUIRED means : "fatal if not found"
+FIND_PACKAGE(glfw 3.3 REQUIRED) # REQUIRED means : "fatal if not found"
 FIND_PACKAGE(glad REQUIRED)
 FIND_PACKAGE(OpenCV REQUIRED)
 find_package(OpenMP)

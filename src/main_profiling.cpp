@@ -20,6 +20,7 @@
 #include "resources/graphics/oglTypes.hpp"
 #include "resources/controller/flock_generator.hpp"
 #include "lib/myTimer/Timer.hpp"
+// #include "lib/TBB/include/oneapi/tbb.h"
 #ifndef __GNUC__
 #pragma endregion
 #endif
@@ -83,6 +84,28 @@ int main() {
         } while (t <= 100);
     }
 
+
+    // {
+    //     Sentry sentry(timer,"TBB");
+    //     long int t = 0;
+    //     do {
+
+    //         tbb::parallel_for(size_t(0), (size_t)(*MAIN_pFLOCK).getPopSize(),
+    //                 [&](size_t i){
+	// 			Agent *bird = (*MAIN_pFLOCK)[i];
+    //             std::tuple<std::vector<Agent*>, std::vector<Agent*>> allNeighbors =
+    //                 (*MAIN_pFLOCK).computeNeighbors(*bird); //this costs performance
+    //             std::vector<Agent*> bVec = std::get<0>(allNeighbors);
+    //             std::vector<Agent*> eVec = std::get<1>(allNeighbors);
+
+    //             (*bird).computeLaws(bVec, eVec);
+    //             (*bird).prepareMove();
+    //             (*bird).setNextPosition(keepPositionInScreen((*bird).getNextPosition(), 800, 800));
+    //             (*bird).move();
+    //         });
+
+    //     } while (t <= 100);
+    // }
 
     timer.printInfo();
 
