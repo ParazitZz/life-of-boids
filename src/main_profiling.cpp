@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <omp.h>
 #include <vector>
 
 #include "lib/myMath/Vec2.hpp"
@@ -36,6 +37,8 @@ int main() {
     long int t = 0;
     do {
         std::cout << "Tour " << t << '\n';
+
+        #pragma omp parallel for shared(MAIN_pFLOCK)
         for (auto& bird : *MAIN_pFLOCK) {
             std::tuple<std::vector<Agent*>, std::vector<Agent*>> allNeighbors =
                 (*MAIN_pFLOCK).computeNeighbors(*bird); //this costs performance
