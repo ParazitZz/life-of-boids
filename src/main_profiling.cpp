@@ -20,6 +20,7 @@
 #include "resources/graphics/GraphicalManager.hpp"
 #include "resources/graphics/oglTypes.hpp"
 #include "resources/controller/flock_generator.hpp"
+#include "utils/Timer.hpp"
 #ifndef __GNUC__
 #pragma endregion
 #endif
@@ -28,13 +29,12 @@ Flock* MAIN_pFLOCK = nullptr;
 std::vector<Agent*> mainFlock;
 
 
-double nloopturns(Flock* MAIN_pFLOCK, int n, int nb_threads) {
+void nloopturns_omp(Flock* MAIN_pFLOCK, int n, int nb_threads) {
     long int t = 0;
     
     omp_set_dynamic(0);     // Explicitly disable dynamic teams
     omp_set_num_threads(nb_threads); // Use 4 threads for all consecutive parallel regions
     
-    auto start = std::chrono::high_resolution_clock::now();
     do {
         //std::cout << "Tour " << t << '\n';
         #pragma omp parallel for shared(MAIN_pFLOCK)
@@ -52,16 +52,12 @@ double nloopturns(Flock* MAIN_pFLOCK, int n, int nb_threads) {
         }
         ++t;
     } while (t <= n);
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    return duration.count() / 1000000.0;
 }
 
 
 int main() {
-    double secs;
-    int size = 2000;
+    int size = 1000;
     mainFlock.reserve(size);
 
 
@@ -70,16 +66,38 @@ int main() {
 
 
     MAIN_pFLOCK = &flock;
+    Timer timer;
 
-    secs = nloopturns(MAIN_pFLOCK, 100, 1);
-    std::cout << "100 loops turns took " << secs << " seconds with 1 thread" << std::endl;
-    secs = nloopturns(MAIN_pFLOCK, 100, 2);
-    std::cout << "100 loops turns took " << secs << " seconds with 2 thread" << std::endl;
-    secs = nloopturns(MAIN_pFLOCK, 100, 4);
-    std::cout << "100 loops turns took " << secs << " seconds with 4 thread" << std::endl;
-    secs = nloopturns(MAIN_pFLOCK, 100, 8);
-    std::cout << "100 loops turns took " << secs << " seconds with 8 thread" << std::endl;
+    {
+        Sentry sentry(timer, "OMP 100 loops, 1 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 1);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 2 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 2);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 4 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 4);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 8 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 8);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 12 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 12);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 16 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 16);
+    }
+    {
+        Sentry sentry(timer, "OMP 100 loops, 24 thread");
+        nloopturns_omp(MAIN_pFLOCK, 100, 24);
+    }
 
+    timer.printInfo();
     return 0;
 }
 
