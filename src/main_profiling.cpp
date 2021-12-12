@@ -2,6 +2,7 @@
 #pragma region declarations
 #endif
 #include <glad/glad.h>
+#include <omp.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <array>
@@ -10,6 +11,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <chrono>
 #include "lib/myMath/Vec2.hpp"
 #include "lib/myMath/utils.hpp"
 #include "resources/model/Flock.hpp"
@@ -25,22 +27,19 @@
 Flock* MAIN_pFLOCK = nullptr;
 std::vector<Agent*> mainFlock;
 
-int main() {
 
-    int size = 600;
-    mainFlock.reserve(size);
-
-
-
-    Flock flock = generate_parrot_flock(size);
-
-
-    MAIN_pFLOCK = &flock;
-
+double nloopturns(Flock* MAIN_pFLOCK, int n, int nb_threads) {
     long int t = 0;
+    
+    omp_set_dynamic(0);     // Explicitly disable dynamic teams
+    omp_set_num_threads(nb_threads); // Use 4 threads for all consecutive parallel regions
+    
+    auto start = std::chrono::high_resolution_clock::now();
     do {
-        std::cout << "Tour " << t << '\n';
-        for (auto& bird : *MAIN_pFLOCK) {
+        //std::cout << "Tour " << t << '\n';
+        #pragma omp parallel for shared(MAIN_pFLOCK)
+        for (int i = 0; i < (*MAIN_pFLOCK).getPopSize(); ++i) {
+            Agent* bird = (*MAIN_pFLOCK)[i];
             std::tuple<std::vector<Agent*>, std::vector<Agent*>> allNeighbors =
                 (*MAIN_pFLOCK).computeNeighbors(*bird); //this costs performance
             std::vector<Agent*> bVec = std::get<0>(allNeighbors);
@@ -52,7 +51,34 @@ int main() {
             (*bird).move();
         }
         ++t;
-    } while (t <= 100);
+    } while (t <= n);
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+    return duration.count() / 1000000.0;
+}
+
+
+int main() {
+    double secs;
+    int size = 2000;
+    mainFlock.reserve(size);
+
+
+
+    Flock flock = generate_parrot_flock(size);
+
+
+    MAIN_pFLOCK = &flock;
+
+    secs = nloopturns(MAIN_pFLOCK, 100, 1);
+    std::cout << "100 loops turns took " << secs << " seconds with 1 thread" << std::endl;
+    secs = nloopturns(MAIN_pFLOCK, 100, 2);
+    std::cout << "100 loops turns took " << secs << " seconds with 2 thread" << std::endl;
+    secs = nloopturns(MAIN_pFLOCK, 100, 4);
+    std::cout << "100 loops turns took " << secs << " seconds with 4 thread" << std::endl;
+    secs = nloopturns(MAIN_pFLOCK, 100, 8);
+    std::cout << "100 loops turns took " << secs << " seconds with 8 thread" << std::endl;
 
     return 0;
 }
