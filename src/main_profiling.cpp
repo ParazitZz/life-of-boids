@@ -30,7 +30,7 @@
 Flock* MAIN_pFLOCK = nullptr;
 std::vector<Agent*> mainFlock;
 
-#define LOOP_SIZE 100
+#define LOOP_SIZE 1
 #define FLOCK_SIZE 1000
 // #define NB_THREADS 16
 
@@ -48,7 +48,7 @@ int main() {
             std::cout << i << " / " << end << std::endl;
             std::string str(std::to_string(sz) + "_");
 
-            Flock flock = generate_parrot_flock(FLOCK_SIZE);
+            Flock flock = generate_parrot_flock(sz);
 
             // std::cout << "FLOCK SIZE=" << FLOCK_SIZE << "\nNB_THREADS=" << NB_THREADS << std::endl;
 
