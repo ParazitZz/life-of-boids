@@ -212,7 +212,7 @@ bool GraphicalManager::mainLoop() {
 					mat2x6 result = triangleDisplay.drawAgent(bird);
 					#pragma omp critical
 					{
-						for (int j = 0; j < result.size(); ++j) {
+						for (size_t j = 0; j < result.size(); ++j) {
 							vertex_data_triangle.push_back(triangle::Vertex{ {result[j].x, result[j].y }, (*bird).getGLColor() });
 						}
 					}
