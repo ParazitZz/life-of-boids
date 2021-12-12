@@ -173,7 +173,6 @@ bool GraphicalManager::mainLoop() {
 		glViewport(0, 0, m_width, m_height);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-
 		{
 			if ((*MAIN_pFLOCK).optimized_computing) {
 				(*MAIN_pFLOCK).updateAgents();
