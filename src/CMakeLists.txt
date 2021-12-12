@@ -9,6 +9,8 @@ if (OPENMP_FOUND)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
+find_package(TBB REQUIRED)
+
 add_subdirectory("lib/myLaws")
 add_subdirectory("lib/myMath")
 add_subdirectory("lib/myTimer")
@@ -21,7 +23,7 @@ add_executable(mathPart math_main.cpp)
 target_link_libraries(mathPart PUBLIC myMath)
 
 add_executable(main_profiling main_profiling.cpp)
-target_link_libraries(main_profiling PUBLIC libGLX myMath shaders myBirds myLaws opencv::opencv flockGenerator myTimer)
+target_link_libraries(main_profiling PUBLIC libGLX myMath shaders myBirds myLaws TBB::TBB opencv::opencv flockGenerator myTimer)
 
 add_executable(life-of-boids main.cpp)
 target_link_libraries(life-of-boids PUBLIC libGLX myMath shaders myBirds myLaws opencv::opencv flockGenerator)
