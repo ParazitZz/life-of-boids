@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 
 ## Forbids in-source builds (placed before PROJECT keyword)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -44,7 +44,7 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 endif ()
 
 # Compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CUSTOM_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CUSTOM_CXX_FLAGS} -static-libgcc -static-libstdc++")
 
 #------------------------------------------------------
 
