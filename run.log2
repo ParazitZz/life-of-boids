@@ -1,0 +1,25 @@
+Beginning OMP
+Beginning TBB
+Second TBB
+Third TBB
+4th TBB
+5th TBB
+6th TBB
+8th TBB
+================================
+PERF INFO : 
+OMP 100 loops, 1 thread:0.453391
+OMP 100 loops, 12 thread:0.115132
+OMP 100 loops, 16 thread:0.141575
+OMP 100 loops, 2 thread:0.394888
+OMP 100 loops, 24 thread:0.152448
+OMP 100 loops, 4 thread:0.172978
+OMP 100 loops, 8 thread:0.1564
+TBB 100 loops, 1 thread:0.647193
+TBB 100 loops, 12 thread:0.130349
+TBB 100 loops, 16 thread:0.130473
+TBB 100 loops, 2 thread:0.196112
+TBB 100 loops, 24 thread:0.103955
+TBB 100 loops, 4 thread:0.121581
+TBB 100 loops, 8 thread:0.0955684
+================================
