@@ -1,0 +1,11 @@
+#!/bin/bash
+./main_profiling > run.log1
+./main_profiling > run.log2
+./main_profiling > run.log3
+./main_profiling > run.log4
+./main_profiling > run.log5
+./main_profiling > run.log6
+./main_profiling > run.log7
+./main_profiling > run.log8
+./main_profiling > run.log9
+./main_profiling > run.log10
