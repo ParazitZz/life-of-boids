@@ -1,0 +1,27 @@
+Beginning OMP
+Beginning TBB
+Second TBB
+Third TBB
+4th TBB
+5th TBB
+6th TBB
+8th TBB
+TBB Warning: The number of workers is currently limited to 15. The request for 23 workers is ignored. Further requests for more workers will be silently ignored until the limit changes.
+
+================================
+PERF INFO : 
+OMP 100 loops, 1 thread:0.411171
+OMP 100 loops, 12 thread:0.296774
+OMP 100 loops, 16 thread:0.214595
+OMP 100 loops, 2 thread:0.298392
+OMP 100 loops, 24 thread:0.250754
+OMP 100 loops, 4 thread:0.190491
+OMP 100 loops, 8 thread:0.113886
+TBB 100 loops, 1 thread:0.396583
+TBB 100 loops, 12 thread:0.112993
+TBB 100 loops, 16 thread:0.101761
+TBB 100 loops, 2 thread:0.233855
+TBB 100 loops, 24 thread:0.0666714
+TBB 100 loops, 4 thread:0.153606
+TBB 100 loops, 8 thread:0.107029
+================================

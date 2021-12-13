@@ -8,6 +8,8 @@ buildGCC/
 buildClang/
 .idea/
 cmake-build-debug/
+build_arthur/
+.vscode/
 
 # User-specific files
 *.rsuser
